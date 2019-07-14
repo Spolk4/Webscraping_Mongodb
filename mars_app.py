@@ -1,9 +1,4 @@
-https://github.com/vtyeh/mission-to-mars_web-scraping
-
-create a jupyter notebook file called mission_to_mars_ipynb for scraping and analysis:
-
 from flask import Flask, render_template, jsonify, redirect
-import pymongo
 from flask_pymongo import PyMongo
 import scrape_mars
 
@@ -32,21 +27,7 @@ def scraped():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-NASA Mars Site (https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest) 
-and collect news_title = "Mars 2020 Rover Gets a Super Instrument" 
-and paragraph_text = "With its rock-zapping laser, the SuperCam will enable the science team to identify the chemical and mineral makeup of its targets on the Red Planet."
-
-visit the JPL site (https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars) featured space image using splinter (webscrapping 102) to navigate site and find the image url  and assign url string to "featured_image_url"
-a full sized .jpg
---using splinter testing web apps for python - intended to click buttons for you.
-look up splinter docs its kind of like a wrappers it uses a remote driver called selenium -which is more verbose
-it usually ends up using the chrome driver which it offe
-Sample splinter code below:
-
+    
 from splinter import Browser
 with Browser()as browser:
 #visit URL
