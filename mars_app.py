@@ -1,17 +1,17 @@
 from flask import Flask, render_template, jsonify, redirect
 from flask_pymongo import PyMongo
+import scrape_mars
 
 app = Flask(__name__)
 
+app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
 mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-    try:
-        mars_data = mongo.db.mars_data.find_one()
-        return render_template('index.html', mars_data=mars_data)
-    except:
-        return redirect("http://localhost:5000/scrape", code=302)
+    mars_data = mongo.db.mars_data.find_one()
+    return render_template('index.html', mars_data=mars_data)
+
 
 @app.route("/scrape")
 def scraped():
