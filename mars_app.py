@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, redirect
 from flask_pymongo import PyMongo 
+import scrap_mars
 
 app = Flask(__name__)
 
@@ -9,12 +10,12 @@ mongo = PyMongo(app)
 @app.route("/")
 def index():
     mars_data = mongo.db.mars_data.find_one()
-    return render_template('templates/mars_index.html', mars_data=mars_data)
+    return render_template('mars_index.html', mars_data=mars_data)
 
 @app.route("/scrape")
 def scraped():
     mars_data = mongo.db.mars_data
-    mars_data_scrape = mars_data.scrape()
+    mars_data_scrape = mars_data.scrape_all()
     mars_data.update(
         {},
         mars_data_scrape,

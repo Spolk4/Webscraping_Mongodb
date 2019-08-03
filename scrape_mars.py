@@ -2,6 +2,8 @@ from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import requests as request
 import pandas as pd
+from selenium import webdriver
+import time
 
 def init_browser():
     executable_path = {'executable_path': 'C:\\Users\\suzan\\chromedriver.exe'}
@@ -72,6 +74,9 @@ def scrape():
         href = image.find('a', class_='itemLink product-item')
         link = url + href['href']
         browser.visit(link)
+
+        #add sleep time to load page
+        time.sleep(2)
 
         hemisphere_html2 = browser.html
         hemisphere_soup2 = bs(hemisphere_html2, 'lxml')

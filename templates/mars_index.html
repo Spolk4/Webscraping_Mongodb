@@ -6,25 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mission to Mars</title>
   <link rel="stylesheet" media="screen" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <style>
-    body, .jumbotron {background-color: #FBF5F3;}
-    .btn {
-      background-color: #7B0828;
-      border: none;
-    }
-    .weather {
-      background-color: #8DAA9D;
-      color: white;
-    }
-    .weather h4, .hemisphere-titles {
-      text-align: center;
-    }
-  </style>
 </head>
+
 <body>
   <div class="container">
+
     <div class="jumbotron text-center">
       <h1>Mission to Mars </h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
@@ -52,6 +38,7 @@
         <p>{{ mars_data.mars_facts | safe }}</p>
       </div>
     </div>
+    
     <div class="panel panel-default">
       <div class="panel-body">
           <h4 id="hemisphere_title" style="text-align: center;">Mars Hemispheres</h4>
