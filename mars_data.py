@@ -71,31 +71,27 @@ def scrape():
     url = 'https://astrogeology.usgs.gov'
 
     # image urls
-    image_list = hemisphere_soup.find_all('div', class_='item')
+    range = hemisphere_soup.find_all('div', class_='item')
 
     # Create list to store dictionaries of data
     hemisphere_image_urls = []
 
     # Loop to each hemisphere and click link to find image url
-    for image in image_list:
-        hemisphere_dict = {}
-    
-        href = image.find('a', class_='itemLink product-item')
-        link = url + href['href']
-        browser.visit(link)
+    for i in range(4):
+        
+        browser.find_by_css("a.product-item h3")[i].click()
+        # href = image.find('a', class_='itemLink product-item')
+        # link = url + href['href']
+        # browser.visit(link)
 
         #add sleep time to load page
         # time.sleep(2)
 
-        hemisphere_html2 = browser.html
-        hemisphere_soup2 = BeautifulSoup(hemisphere_html2, 'html.parser')
-    
-        hemisphere_dict['title'] = hemisphere_soup2.find('div', class_='content').find('h2', class_='title').get_text()
-    
-        hemisphere_dict['url_img'] = hemisphere_soup2.find('img', class_='wide-image').find('src')
-    
+        hemisphere_html = browser.html
+        # hemisphere_soup2 = BeautifulSoup(hemisphere_html, 'html.parser')
+        # hemisphere_dict['url_img'] = hemisphere_soup2.find('img', class_='wide-image').find('src')
         # Append dictionary to list
-        hemisphere_image_urls.append(hemisphere_dict)
+        hemisphere_image_urls.append(hemisphere_html)
 
         #navigate backwards
         browser.back()
