@@ -77,21 +77,25 @@ def scrape():
     hemisphere_image_urls = []
 
     # Loop to each hemisphere and click link to find image url
-    for i in range(4):
-        
-        browser.find_by_css("a.product-item h3")[i].click()
-        # href = image.find('a', class_='itemLink product-item')
-        # link = url + href['href']
-        # browser.visit(link)
+    for image in range(4):
+        hemisphere_dict = {}
+    
+        href = image.find('a', class_='itemLink product-item')
+        link = url + href['href']
+        browser.visit(link)
 
         #add sleep time to load page
         # time.sleep(2)
 
         hemisphere_html = browser.html
-        # hemisphere_soup2 = BeautifulSoup(hemisphere_html, 'html.parser')
-        # hemisphere_dict['url_img'] = hemisphere_soup2.find('img', class_='wide-image').find('src')
+        hemisphere_soup = BeautifulSoup(hemisphere_html, 'html.parser')
+    
+        hemisphere_dict['title'] = hemisphere_soup.find('div', class_='content').find('h2', class_='title').get_text()
+    
+        hemisphere_dict['url_img'] = hemisphere_soup.find('img', class_='wide-image').find('src')
+    
         # Append dictionary to list
-        hemisphere_image_urls.append(hemisphere_html)
+        hemisphere_image_urls.append(hemisphere_dict)
 
         #navigate backwards
         browser.back()
