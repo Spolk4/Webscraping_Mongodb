@@ -2,38 +2,22 @@ from splinter import Browser
 from bs4 import BeautifulSoup
 import requests as request
 import pandas as pd
-from selenium import webdriver
-import time
 
+def init_browser():
+    executable_path={"executable_path":'C:\\Users\\suzan\\chromedriver.exe'}
+    return Browser("chrome", **executable_path, headless=False)
 
 def scrape():
     # create dictionary called mars_data to store scraped data
-    browser=Browser("chrome", executable_path='C:\\Users\\suzan\\chromedriver.exe', headless=True)
-    response = request.get('https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest')
-    soup = BeautifulSoup(response.text, 'html.parser')
-    news_title = soup.find('div', class_='content_title').text
-    news_p = soup.find('div', class_ = 'rollover_description').text
-
-    mars_data = {
-         "news_title": news_title,
-         "news_p": news_p,
-         "featured_image": featured_image,
-         "hemisphers": hemispheres,
-         "mars_weather": twitter_weather,
-         "mars_facts": mars_facts
-    }
-
-    # Stop webdriver and return data
-    browser.quit()
-    return mars_data
+    browser = init_browser()
 
     # Mars - Nasa scrape
 def mars_news(browser):
     response = request.get('https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest')
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    news_title = soup.find('div', class_='content_title').text
-    news_p = soup.find('div', class_ = 'rollover_description').text
+    news_title = soup.find('div', class_='content_title').get_text()
+    news_p = soup.find('div', class_ = 'rollover_description').get_text()
     mars_data['news_title'] = news_title
     mars_data['news_p'] = news_p
 
@@ -41,7 +25,7 @@ def mars_news(browser):
 def twitter_weather(browser):
     response = request.get('https://twitter.com/marswxreport?lang=en')
     soup = BeautifulSoup(response.text, 'html.parser')
-    mars_weather = soup.find('div', class_='js-tweet-text-container').text
+    mars_weather = soup.find('div', class_='js-tweet-text-container').get_text()
     mars_data['mars_weather'] = mars_weather
 
     # Facts scrape
@@ -75,6 +59,7 @@ def featured_image(browser):
     img_url = f'https://www.jpl.nasa.gov{img_url_rel}'
 
     return img_url
+    mars_data['img_url'] = img_url
 
     # Hemisphere image scrape
 def hemispheres(browser):
@@ -113,7 +98,6 @@ def hemispheres(browser):
         # Append dictionary to list
         hemisphere_image_urls.append(hemisphere_dict)
 
-            
         #navigate backwards
         browser.back()
 
