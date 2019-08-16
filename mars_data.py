@@ -39,7 +39,7 @@ def scrape():
 
     featured_image_url = f'https://www.jpl.nasa.gov{img_url_rel}'
 
-    return featured_image_url
+    # return featured_image_url
     mars_data['featured_image_url'] = featured_image_url
 
     # Twitter Weather scrape
@@ -55,10 +55,10 @@ def scrape():
     tables = pd.read_html('https://space-facts.com/mars/')
     mars_df = tables[1]
     mars_df.columns = ['Description', 'Value']
-    mars_df.set_index('Desctiption', inplace=True)
+    mars_df.set_index('Description', inplace=True)
     
-    return mars_df.to_html(classes="table table-striped")
-    mars_facts = mars_df.to_html()
+    # return mars_df.to_html(classes="table table-striped")
+    mars_facts = mars_df.to_html(classes="table table-striped")
     mars_data['mars_facts'] = mars_facts
 
 
@@ -71,13 +71,13 @@ def scrape():
     url = 'https://astrogeology.usgs.gov'
 
     # image urls
-    range = hemisphere_soup.find_all('div', class_='item')
+    item_range= hemisphere_soup.find_all('div', class_='item')
 
     # Create list to store dictionaries of data
     hemisphere_image_urls = []
 
     # Loop to each hemisphere and click link to find image url
-    for image in range(4):
+    for image in item_range:
         hemisphere_dict = {}
     
         href = image.find('a', class_='itemLink product-item')
